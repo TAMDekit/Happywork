@@ -23,7 +23,7 @@
       <span>Happy Work</span>
     </a>
 
-    <div class="nav-links" id="navLinks">
+    <div class="nav-links nav-desktop" id="navLinks">
       <a href="#home" class="active" data-page="home" onclick="navigate('home')">หน้าแรก</a>
       <a href="#counselor" data-page="counselor" onclick="navigate('counselor')">หาที่ปรึกษา</a>
       <a href="#stress-test" data-page="stress-test" onclick="navigate('stress-test')">แบบทดสอบความเครียด</a>
@@ -32,11 +32,93 @@
       <a href="#login" data-page="login" class="btn-login" onclick="navigate('login')">เข้าสู่ระบบ</a>
     </div>
 
-    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="เมนู">
       <span></span><span></span><span></span>
-    </div>
+    </button>
   </div>
 </nav>
+
+<!-- ============ MOBILE NAV DRAWER (Direct child of body, never trapped in stacking context) ============ -->
+<div class="mobile-nav-backdrop" id="mobileNavBackdrop" onclick="closeMenu()"></div>
+<aside class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="เมนูหลักสำหรับมือถือ">
+  <div class="mobile-drawer-header">
+    <div class="mobile-drawer-brand">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+        <circle cx="20" cy="20" r="20" fill="url(#mLogoGrad)"/>
+        <path d="M12 28c0-10 8-16 16-16-2 6-6 10-10 12 4-1 8-3 10-6 0 8-6 14-14 14a8 8 0 01-2-.4" fill="#fff" opacity=".9"/>
+        <defs><linearGradient id="mLogoGrad" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#7EC8E3"/><stop offset="1" stop-color="#6BBF72"/></linearGradient></defs>
+      </svg>
+      <span>Happy Work</span>
+    </div>
+    <button class="mobile-drawer-close" onclick="closeMenu()" aria-label="ปิดเมนู">✕</button>
+  </div>
+
+  <div class="mobile-drawer-body">
+    <div class="mobile-nav-links">
+      <a href="#home" class="mobile-nav-item active" data-page="home" onclick="navigate('home')">
+        <span class="m-nav-icon" style="background:var(--primary-100);color:var(--primary-600)">🏠</span>
+        <div class="m-nav-text">
+          <span class="m-nav-title">หน้าแรก</span>
+          <span class="m-nav-sub">พื้นที่ปลอดภัยสำหรับคนทำงาน</span>
+        </div>
+        <span class="m-nav-arrow">›</span>
+      </a>
+
+      <a href="#counselor" class="mobile-nav-item" data-page="counselor" onclick="navigate('counselor')">
+        <span class="m-nav-icon" style="background:var(--green-100);color:var(--green-600)">🧑‍⚕️</span>
+        <div class="m-nav-text">
+          <span class="m-nav-title">หาที่ปรึกษา</span>
+          <span class="m-nav-sub">นัดหมายนักจิตวิทยา & จิตแพทย์</span>
+        </div>
+        <span class="m-nav-arrow">›</span>
+      </a>
+
+      <a href="#stress-test" class="mobile-nav-item" data-page="stress-test" onclick="navigate('stress-test')">
+        <span class="m-nav-icon" style="background:#FEF3C7;color:#D97706">📋</span>
+        <div class="m-nav-text">
+          <span class="m-nav-title">แบบทดสอบความเครียด</span>
+          <span class="m-nav-sub">SPST-20 มาตรฐานสากล 20 ข้อ</span>
+        </div>
+        <span class="m-nav-arrow">›</span>
+      </a>
+
+      <a href="#articles" class="mobile-nav-item" data-page="articles" onclick="navigate('articles')">
+        <span class="m-nav-icon" style="background:var(--lavender-100);color:#7C3AED">📖</span>
+        <div class="m-nav-text">
+          <span class="m-nav-title">บทความสุขภาพจิต</span>
+          <span class="m-nav-sub">สาระและข้อคิดดูแลจิตใจ</span>
+        </div>
+        <span class="m-nav-arrow">›</span>
+      </a>
+
+      <a href="#emergency" class="mobile-nav-item" data-page="emergency" onclick="navigate('emergency')">
+        <span class="m-nav-icon" style="background:#FEE2E2;color:#DC2626">🚨</span>
+        <div class="m-nav-text">
+          <span class="m-nav-title">เบอร์ฉุกเฉิน</span>
+          <span class="m-nav-sub">สายด่วนช่วยเหลือตลอด 24 ชม.</span>
+        </div>
+        <span class="m-nav-arrow">›</span>
+      </a>
+    </div>
+
+    <!-- User / Auth Section in Drawer -->
+    <div class="mobile-drawer-auth" id="mobileDrawerAuth">
+      <a href="#login" class="mobile-auth-btn" id="mobileLoginBtn" onclick="navigate('login')">
+        <span class="m-auth-icon">👤</span>
+        <span class="m-auth-text" id="mobileLoginText">เข้าสู่ระบบ / สมัครสมาชิก</span>
+      </a>
+    </div>
+
+    <!-- Quick Emergency Card in Drawer -->
+    <div class="mobile-drawer-emergency">
+      <div class="m-emg-label">🆘 ต้องการความช่วยเหลือเร่งด่วน?</div>
+      <a href="tel:1323" class="m-emg-btn">
+        <span>📞 สายด่วนกรมสุขภาพจิต 1323</span>
+        <span class="m-emg-badge">ฟรี 24 ชม.</span>
+      </a>
+    </div>
+  </div>
+</aside>
 
 <!-- ============ HOME PAGE ============ -->
 <div class="page active" id="page-home">
@@ -259,6 +341,16 @@
     <h2>🏥 นัดปรึกษาทันที — สุขภาพจิต</h2>
     <p style="color:var(--text-light);font-size:.9rem;margin-bottom:24px">สถานพยาบาลและคลินิกสุขภาพจิตชั้นนำที่คุณสามารถติดต่อนัดหมายได้โดยตรง</p>
     <div id="quickConsultList">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ============ COUNSELOR BOOKING MODAL ============ -->
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal booking-modal-card">
+    <button class="modal-close" onclick="closeBookingModal()">&times;</button>
+    <div id="bookingModalContent">
       <!-- Rendered by JS -->
     </div>
   </div>

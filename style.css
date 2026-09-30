@@ -127,6 +127,10 @@ ul{list-style:none}
 .hamburger.open span:nth-child(2){opacity:0}
 .hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
 
+/* Mobile drawer: keep navigation in its own layer so it never overlaps page text. */
+.mobile-nav-backdrop,
+.mobile-nav-drawer{display:none}
+
 /* ========================================
    HERO SECTION
    ======================================== */
@@ -709,17 +713,41 @@ ul{list-style:none}
    LOGIN PAGE
    ======================================== */
 .auth-container{
-  max-width:440px;margin:0 auto;padding:0 24px;
+  max-width:440px;margin:0 auto;padding:0 20px;
 }
 .auth-card{
   background:var(--white);border:1px solid var(--border);
-  border-radius:var(--r-lg);padding:40px 36px;
-  box-shadow:var(--shadow-md);animation:scaleIn .4s var(--ease) both;
+  border-radius:var(--r-xl);padding:40px 36px;
+  box-shadow:var(--shadow-lg);animation:scaleIn .4s var(--ease) both;
 }
-.auth-card h2{font-size:1.5rem;font-weight:700;text-align:center;margin-bottom:8px}
-.auth-card .subtitle{text-align:center;color:var(--text-light);font-size:.9rem;margin-bottom:28px}
-.form-group{margin-bottom:20px}
-.form-group label{display:block;font-size:.88rem;font-weight:500;margin-bottom:6px;color:var(--text)}
+.auth-logo{
+  text-align:center;margin-bottom:16px;
+}
+.auth-card h2{font-size:1.6rem;font-weight:700;text-align:center;margin-bottom:6px}
+.auth-card .subtitle{text-align:center;color:var(--text-light);font-size:.9rem;margin-bottom:24px}
+
+/* Social login buttons */
+.auth-social-row{display:flex;gap:12px;margin-bottom:20px}
+.btn-social{
+  flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 16px;border-radius:var(--r-md);
+  border:1.5px solid var(--border);background:var(--white);
+  font-size:.9rem;font-weight:500;font-family:inherit;
+  color:var(--text);cursor:pointer;transition:all var(--dur) var(--ease);
+}
+.btn-social:hover{border-color:var(--primary-300);background:var(--primary-50);transform:translateY(-2px)}
+
+/* Divider */
+.auth-divider{
+  display:flex;align-items:center;gap:12px;
+  margin:16px 0;color:var(--text-muted);font-size:.82rem;
+}
+.auth-divider::before,.auth-divider::after{
+  content:'';flex:1;height:1px;background:var(--border);
+}
+
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:.88rem;font-weight:600;margin-bottom:6px;color:var(--text)}
 .form-group input{
   width:100%;padding:13px 16px;border:2px solid var(--border);
   border-radius:var(--r-md);font-size:.95rem;font-family:inherit;
@@ -728,20 +756,45 @@ ul{list-style:none}
 .form-group input:focus{outline:none;border-color:var(--primary-300);background:var(--white);box-shadow:0 0 0 4px rgba(126,200,227,.1)}
 .form-group .input-note{font-size:.8rem;color:var(--text-muted);margin-top:4px}
 
-.auth-card .btn{width:100%;justify-content:center;margin-top:8px}
-.auth-toggle{text-align:center;margin-top:20px;font-size:.88rem;color:var(--text-light)}
+/* Password field with toggle */
+.password-wrap{position:relative}
+.password-wrap input{padding-right:48px}
+.toggle-pass{
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  font-size:1rem;background:none;border:none;cursor:pointer;
+  color:var(--text-muted);padding:4px;transition:color var(--dur) var(--ease);
+}
+.toggle-pass:hover{color:var(--primary-500)}
+
+.forgot-link{text-align:right;margin-top:-10px;margin-bottom:12px;font-size:.83rem}
+.forgot-link a{color:var(--primary-500);cursor:pointer}
+.forgot-link a:hover{text-decoration:underline}
+
+.auth-card .btn{width:100%;justify-content:center;margin-top:4px;font-size:1rem;padding:14px 28px}
+.auth-toggle{text-align:center;margin-top:18px;font-size:.88rem;color:var(--text-light)}
 .auth-toggle a{color:var(--primary-500);font-weight:500;cursor:pointer}
 .auth-toggle a:hover{text-decoration:underline}
+.auth-terms{text-align:center;font-size:.78rem;color:var(--text-muted);margin-top:12px}
+.auth-terms a{color:var(--primary-500)}
 
-/* OTP */
-.otp-group{display:flex;gap:10px;justify-content:center;margin:20px 0}
-.otp-group input{
-  width:48px;height:56px;text-align:center;
-  font-size:1.3rem;font-weight:600;
-  border:2px solid var(--border);border-radius:var(--r-md);
-  transition:all var(--dur) var(--ease);
+/* Profile view */
+.user-avatar-big{
+  width:72px;height:72px;border-radius:50%;margin:0 auto;
+  background:linear-gradient(135deg,var(--primary-300),var(--green-300));
+  color:#fff;font-size:1.8rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
 }
-.otp-group input:focus{outline:none;border-color:var(--primary-400);box-shadow:0 0 0 4px rgba(126,200,227,.15)}
+.user-info-box{
+  background:var(--bg);border-radius:var(--r-md);
+  padding:16px 20px;margin:20px 0;border:1px solid var(--border);
+}
+.user-info-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 0;border-bottom:1px solid var(--border);
+}
+.user-info-row:last-child{border-bottom:none;padding-bottom:0}
+.info-label{font-size:.85rem;color:var(--text-muted);font-weight:500}
+.info-value{font-size:.85rem;color:var(--text);font-weight:600;text-align:right;word-break:break-all;max-width:65%}
 
 /* ========================================
    EMERGENCY PAGE
@@ -934,16 +987,40 @@ ul{list-style:none}
 }
 
 @media(max-width:768px){
-  .nav-links{
-    position:fixed;top:68px;left:0;right:0;bottom:0;
-    background:rgba(255,255,255,.96);backdrop-filter:blur(16px);
-    flex-direction:column;align-items:center;justify-content:flex-start;
-    padding-top:40px;gap:8px;
-    transform:translateX(100%);transition:transform .35s var(--ease);
-    z-index:999;
+  .nav-desktop{display:none}
+  .mobile-nav-backdrop{
+    position:fixed;inset:0;z-index:1990;display:block;
+    background:rgba(19,39,51,.42);backdrop-filter:blur(3px);
+    opacity:0;visibility:hidden;transition:opacity .25s var(--ease),visibility .25s var(--ease);
   }
-  .nav-links.open{transform:translateX(0)}
-  .nav-links a{font-size:1.05rem;padding:14px 24px}
+  .mobile-nav-drawer{
+    position:fixed;top:0;right:0;bottom:0;z-index:2000;
+    display:flex;flex-direction:column;width:min(88vw,390px);
+    background:var(--white);box-shadow:-12px 0 36px rgba(20,48,62,.18);
+    transform:translateX(102%);transition:transform .3s var(--ease);
+    overflow:hidden;visibility:hidden;
+  }
+  .mobile-nav-drawer.open{transform:translateX(0);visibility:visible}
+  .mobile-nav-backdrop.open{opacity:1;visibility:visible}
+  .mobile-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--border);flex-shrink:0}
+  .mobile-drawer-brand{display:flex;align-items:center;gap:9px;font-weight:700;color:var(--primary-500)}
+  .mobile-drawer-close{width:38px;height:38px;border-radius:50%;font-size:1.2rem;color:var(--text-light);background:var(--bg)}
+  .mobile-drawer-body{padding:14px 14px 24px;overflow-y:auto;min-height:0}
+  .mobile-nav-links{display:flex;flex-direction:column;gap:6px}
+  .mobile-nav-item{display:flex;align-items:center;gap:12px;padding:12px 10px;border-radius:var(--r-md);min-width:0}
+  .mobile-nav-item:hover,.mobile-nav-item.active{background:var(--primary-50)}
+  .m-nav-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.2rem}
+  .m-nav-text{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1}
+  .m-nav-title{font-size:.95rem;font-weight:600;line-height:1.35}
+  .m-nav-sub{font-size:.72rem;color:var(--text-muted);line-height:1.35;overflow-wrap:anywhere}
+  .m-nav-arrow{font-size:1.5rem;color:var(--text-muted);flex-shrink:0;line-height:1}
+  .mobile-drawer-auth{margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
+  .mobile-auth-btn{display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:var(--r-md);background:linear-gradient(135deg,var(--primary-300),var(--primary-500));color:var(--white);font-weight:600}
+  .m-auth-icon{font-size:1.1rem}.m-auth-text{min-width:0;overflow-wrap:anywhere}
+  .mobile-drawer-emergency{margin-top:14px;padding:14px;background:#FFF5F3;border:1px solid #F7D2C7;border-radius:var(--r-md)}
+  .m-emg-label{font-size:.78rem;font-weight:600;color:#B4533F;margin-bottom:9px}
+  .m-emg-btn{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.8rem;color:#9F3F31;font-weight:600}
+  .m-emg-badge{font-size:.68rem;color:#B4533F;white-space:nowrap}
   .hamburger{display:flex}
 
   .hero{padding-top:100px}

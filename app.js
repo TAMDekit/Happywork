@@ -389,9 +389,7 @@ let testState = { currentQ:0, answers:[], started:false, completed:false };
 
 // ────────── NAVIGATION ──────────
 function navigate(page, pushState=true) {
-  // close mobile menu
-  document.getElementById('navLinks').classList.remove('open');
-  document.getElementById('hamburger').classList.remove('open');
+  closeMenu();
 
   // hide all pages
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -423,8 +421,23 @@ function navigate(page, pushState=true) {
 }
 
 function toggleMenu(){
-  document.getElementById('navLinks').classList.toggle('open');
-  document.getElementById('hamburger').classList.toggle('open');
+  const drawer = document.getElementById('mobileNavDrawer');
+  const backdrop = document.getElementById('mobileNavBackdrop');
+  const hamburger = document.getElementById('hamburger');
+  const isOpen = drawer.classList.toggle('open');
+  backdrop.classList.toggle('open', isOpen);
+  hamburger.classList.toggle('open', isOpen);
+  hamburger.setAttribute('aria-expanded', String(isOpen));
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+
+function closeMenu(){
+  document.getElementById('navLinks')?.classList.remove('open');
+  document.getElementById('mobileNavDrawer')?.classList.remove('open');
+  document.getElementById('mobileNavBackdrop')?.classList.remove('open');
+  document.getElementById('hamburger')?.classList.remove('open');
+  document.getElementById('hamburger')?.setAttribute('aria-expanded','false');
+  document.body.style.overflow = '';
 }
 
 // Navbar scroll effect
@@ -441,6 +454,7 @@ window.addEventListener('hashchange',()=>{
 // Init
 window.addEventListener('DOMContentLoaded',()=>{
   const hash = window.location.hash.slice(1) || 'home';
+  updateNavLoginBtn();
   if(hash!=='home') navigate(hash, false);
   renderQuickConsult();
 });
@@ -989,86 +1003,201 @@ function backToArticles(){
 
 
 // ────────── LOGIN ──────────
-let authMode = 'login'; // login | register | otp
+let authMode = 'login'; // login | register
+let currentUser = JSON.parse(localStorage.getItem('happyWorkCurrentUser') || 'null');
+
+// Simple in-memory user store (demo)
+const userStore = JSON.parse(localStorage.getItem('happyWorkUsers') || '{}');
 
 function renderLogin(){
   const container = document.getElementById('authContainer');
 
-  if(authMode==='otp'){
-    container.innerHTML = `
-      <div class="auth-card">
-        <h2>✉️ ยืนยันอีเมล</h2>
-        <p class="subtitle">กรุณากรอกรหัส OTP ที่ส่งไปยังอีเมลของคุณ</p>
-        <div class="otp-group">
-          <input type="text" maxlength="1" oninput="otpNext(this,1)" id="otp0"/>
-          <input type="text" maxlength="1" oninput="otpNext(this,2)" id="otp1"/>
-          <input type="text" maxlength="1" oninput="otpNext(this,3)" id="otp2"/>
-          <input type="text" maxlength="1" oninput="otpNext(this,4)" id="otp3"/>
-          <input type="text" maxlength="1" oninput="otpNext(this,5)" id="otp4"/>
-          <input type="text" maxlength="1" oninput="verifyOTP()" id="otp5"/>
-        </div>
-        <p style="text-align:center;font-size:.85rem;color:var(--text-muted);margin-bottom:20px">ไม่ได้รับรหัส? <a style="color:var(--primary-500);cursor:pointer" onclick="showToast('ส่งรหัส OTP ใหม่แล้ว!')">ส่งอีกครั้ง</a></p>
-        <button class="btn btn-primary" onclick="verifyOTP()">ยืนยัน</button>
-        <p class="auth-toggle"><a onclick="authMode='login';renderLogin()">← กลับหน้าเข้าสู่ระบบ</a></p>
-      </div>`;
-    setTimeout(()=>document.getElementById('otp0')?.focus(),100);
+  // If already logged in, show profile
+  if(currentUser){
+    renderProfile(container);
     return;
   }
 
   const isLogin = authMode==='login';
   container.innerHTML = `
     <div class="auth-card">
+      <div class="auth-logo">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+          <circle cx="20" cy="20" r="20" fill="url(#loginGrad)"/>
+          <path d="M12 28c0-10 8-16 16-16-2 6-6 10-10 12 4-1 8-3 10-6 0 8-6 14-14 14a8 8 0 01-2-.4" fill="#fff" opacity=".9"/>
+          <defs><linearGradient id="loginGrad" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#7EC8E3"/><stop offset="1" stop-color="#6BBF72"/></linearGradient></defs>
+        </svg>
+      </div>
       <h2>${isLogin?'👋 เข้าสู่ระบบ':'✨ สมัครสมาชิก'}</h2>
-      <p class="subtitle">${isLogin?'ยินดีต้อนรับกลับ! กรุณากรอกข้อมูลเพื่อเข้าสู่ระบบ':'สร้างบัญชีใหม่เพื่อใช้บริการ Happy Work'}</p>
+      <p class="subtitle">${isLogin?'ยินดีต้อนรับกลับสู่ Happy Work':'เริ่มต้นใช้งาน Happy Work ได้ฟรี'}</p>
+
+      <div class="auth-social-row">
+        <button class="btn-social" onclick="handleSocialLogin('Google')">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#EA4335" d="M5.26 9.77A7.49 7.49 0 0112 4.5c1.93 0 3.68.72 5.02 1.9l3.56-3.56A12 12 0 000 12c0 1.96.47 3.81 1.3 5.44l3.96-3.07a7.52 7.52 0 010-4.6z"/><path fill="#FBBC05" d="M12 4.5c1.93 0 3.68.72 5.02 1.9l3.56-3.56A12 12 0 0012 0c-4.97 0-9.24 2.85-11.44 7.02L4.52 10.1A7.51 7.51 0 0112 4.5z"/><path fill="#34A853" d="M12 19.5a7.49 7.49 0 01-7.48-7.08l-3.96 3.07A12 12 0 0012 24c3.12 0 5.95-1.13 8.12-3l-3.76-2.9A7.46 7.46 0 0112 19.5z"/><path fill="#4285F4" d="M23.9 12.27c0-.83-.07-1.42-.21-2.04H12v4.03h6.69a5.77 5.77 0 01-2.57 3.83l3.76 2.9C22.16 18.97 23.9 15.87 23.9 12.27z"/></svg>
+          Google
+        </button>
+        <button class="btn-social" onclick="handleSocialLogin('LINE')">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#06C755" d="M12 2C6.48 2 2 5.9 2 10.7c0 3.07 1.73 5.77 4.37 7.43-.15.56-.97 3.54-1 3.71 0 0-.02.12.06.17s.18.03.24-.01c.32-.21 3.78-2.5 4.42-2.93.64.09 1.3.14 1.91.14 5.52 0 10-3.9 10-8.7S17.52 2 12 2z"/></svg>
+          LINE
+        </button>
+      </div>
+
+      <div class="auth-divider"><span>หรือ</span></div>
+
       ${!isLogin?`
       <div class="form-group">
         <label for="regName">ชื่อ-นามสกุล</label>
-        <input type="text" id="regName" placeholder="กรอกชื่อ-นามสกุล" />
+        <input type="text" id="regName" placeholder="กรอกชื่อของคุณ" autocomplete="name" />
       </div>`:''}
       <div class="form-group">
         <label for="authEmail">อีเมล</label>
-        <input type="email" id="authEmail" placeholder="example@email.com" />
+        <input type="email" id="authEmail" placeholder="example@email.com" autocomplete="email" />
       </div>
       <div class="form-group">
         <label for="authPass">รหัสผ่าน</label>
-        <input type="password" id="authPass" placeholder="อย่างน้อย 8 ตัวอักษร" />
-        ${!isLogin?'<p class="input-note">ใช้ตัวอักษร ตัวเลข และสัญลักษณ์ผสมกัน</p>':''}
+        <div class="password-wrap">
+          <input type="password" id="authPass" placeholder="${isLogin?'รหัสผ่านของคุณ':'อย่างน้อย 8 ตัวอักษร'}" autocomplete="${isLogin?'current-password':'new-password'}" />
+          <button type="button" class="toggle-pass" onclick="togglePassword()" title="แสดง/ซ่อนรหัสผ่าน">👁</button>
+        </div>
       </div>
-      <button class="btn btn-primary" onclick="handleAuth()">${isLogin?'เข้าสู่ระบบ':'สมัครสมาชิก'}</button>
-      <p class="auth-toggle">${isLogin?'ยังไม่มีบัญชี? <a onclick="authMode=\'register\';renderLogin()">สมัครสมาชิก</a>':'มีบัญชีแล้ว? <a onclick="authMode=\'login\';renderLogin()">เข้าสู่ระบบ</a>'}</p>
+      ${isLogin?'<p class="forgot-link"><a onclick="showToast(\'กรุณาติดต่อ support@happywork.co\')" style="cursor:pointer">ลืมรหัสผ่าน?</a></p>':''}
+      <button class="btn btn-primary" id="authSubmitBtn" onclick="handleAuth()">
+        ${isLogin?'เข้าสู่ระบบ →':'สมัครสมาชิกฟรี →'}
+      </button>
+      <p class="auth-toggle">${isLogin?'ยังไม่มีบัญชี? <a onclick="authMode=\'register\';renderLogin()">สมัครสมาชิกฟรี</a>':'มีบัญชีแล้ว? <a onclick="authMode=\'login\';renderLogin()">เข้าสู่ระบบ</a>'}</p>
+      ${!isLogin?'<p class="auth-terms">การสมัครสมาชิกถือว่าคุณยอมรับ <a href="#">นโยบายความเป็นส่วนตัว</a> ของ Happy Work</p>':''}
+    </div>`;
+
+  // Enter key support
+  setTimeout(()=>{
+    document.getElementById('authPass')?.addEventListener('keydown', e=>{
+      if(e.key==='Enter') handleAuth();
+    });
+    document.getElementById('authEmail')?.addEventListener('keydown', e=>{
+      if(e.key==='Enter') handleAuth();
+    });
+  }, 50);
+}
+
+function renderProfile(container){
+  container.innerHTML = `
+    <div class="auth-card">
+      <div class="auth-logo">
+        <div class="user-avatar-big">${currentUser.name.charAt(0).toUpperCase()}</div>
+      </div>
+      <h2>สวัสดี ${currentUser.name}! 👋</h2>
+      <p class="subtitle">คุณเข้าสู่ระบบด้วย ${currentUser.email}</p>
+      <div class="user-info-box">
+        <div class="user-info-row">
+          <span class="info-label">👤 ชื่อ</span>
+          <span class="info-value">${currentUser.name}</span>
+        </div>
+        <div class="user-info-row">
+          <span class="info-label">📧 อีเมล</span>
+          <span class="info-value">${currentUser.email}</span>
+        </div>
+        <div class="user-info-row">
+          <span class="info-label">🕐 เข้าสู่ระบบ</span>
+          <span class="info-value">${currentUser.loginTime}</span>
+        </div>
+      </div>
+      <button class="btn btn-outline" style="margin-top:8px" onclick="handleLogout()">
+        🚪 ออกจากระบบ
+      </button>
+      <button class="btn btn-primary" style="margin-top:8px" onclick="navigate('stress-test')">
+        📋 เริ่มทำแบบทดสอบความเครียด
+      </button>
     </div>`;
 }
 
+function togglePassword(){
+  const input = document.getElementById('authPass');
+  if(!input) return;
+  input.type = input.type === 'password' ? 'text' : 'password';
+}
+
+function handleSocialLogin(provider){
+  showToast(`${provider} login จะเปิดใช้งานเร็ว ๆ นี้`);
+}
+
 function handleAuth(){
-  const email = document.getElementById('authEmail')?.value;
+  const email = document.getElementById('authEmail')?.value?.trim();
   const pass = document.getElementById('authPass')?.value;
-  if(!email || !pass){
-    showToast('กรุณากรอกข้อมูลให้ครบถ้วน');
+
+  if(!email){
+    showToast('⚠️ กรุณากรอกอีเมล');
+    document.getElementById('authEmail')?.focus();
     return;
   }
-  if(authMode==='register'){
-    const name = document.getElementById('regName')?.value;
-    if(!name){ showToast('กรุณากรอกชื่อ-นามสกุล'); return; }
+  if(!pass || pass.length < 6){
+    showToast('⚠️ รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร');
+    document.getElementById('authPass')?.focus();
+    return;
   }
-  authMode='otp';
-  renderLogin();
-  showToast('ส่งรหัส OTP ไปยังอีเมลของคุณแล้ว!');
+
+  const btn = document.getElementById('authSubmitBtn');
+  if(btn){ btn.disabled=true; btn.textContent='กำลังดำเนินการ...'; }
+
+  // Simulate a brief loading state
+  setTimeout(()=>{
+    if(authMode==='register'){
+      const name = document.getElementById('regName')?.value?.trim();
+      if(!name){
+        showToast('⚠️ กรุณากรอกชื่อ');
+        if(btn){ btn.disabled=false; btn.textContent='สมัครสมาชิกฟรี →'; }
+        return;
+      }
+      if(userStore[email]){
+        showToast('⚠️ อีเมลนี้มีบัญชีอยู่แล้ว กรุณาเข้าสู่ระบบ');
+        if(btn){ btn.disabled=false; btn.textContent='สมัครสมาชิกฟรี →'; }
+        return;
+      }
+      userStore[email] = { name, email, password: pass };
+      localStorage.setItem('happyWorkUsers', JSON.stringify(userStore));
+      currentUser = { name, email, loginTime: new Date().toLocaleString('th-TH') };
+      showToast('✅ สมัครสมาชิกสำเร็จ! ยินดีต้อนรับ ' + name);
+    } else {
+      const stored = userStore[email];
+      if(!stored || stored.password !== pass){
+        showToast('⚠️ อีเมลหรือรหัสผ่านไม่ถูกต้อง');
+        if(btn){ btn.disabled=false; btn.textContent='เข้าสู่ระบบ →'; }
+        return;
+      }
+      currentUser = { name: stored.name, email, loginTime: new Date().toLocaleString('th-TH') };
+      showToast('✅ เข้าสู่ระบบสำเร็จ! ยินดีต้อนรับ ' + stored.name);
+    }
+    localStorage.setItem('happyWorkCurrentUser', JSON.stringify(currentUser));
+    // Update navbar login button
+    updateNavLoginBtn();
+    setTimeout(()=>{ navigate('home'); }, 1200);
+  }, 600);
 }
 
-function otpNext(el, nextIdx){
-  if(el.value && nextIdx<6){
-    document.getElementById('otp'+nextIdx)?.focus();
-  }
+function handleLogout(){
+  currentUser = null;
+  localStorage.removeItem('happyWorkCurrentUser');
+  authMode = 'login';
+  updateNavLoginBtn();
+  showToast('ออกจากระบบเรียบร้อยแล้ว');
+  navigate('home');
 }
 
-function verifyOTP(){
-  let otp = '';
-  for(let i=0;i<6;i++){
-    otp += document.getElementById('otp'+i)?.value||'';
-  }
-  if(otp.length===6){
-    showToast('✅ ยืนยันสำเร็จ! ยินดีต้อนรับสู่ Happy Work');
-    setTimeout(()=>{authMode='login';navigate('home');},1500);
+function updateNavLoginBtn(){
+  const btn = document.querySelector('.nav-links .btn-login');
+  if(currentUser){
+    if(btn){
+      btn.textContent = '👤 ' + currentUser.name.split(' ')[0];
+      btn.setAttribute('onclick', "navigate('login')");
+    }
+    const mobileText = document.getElementById('mobileLoginText');
+    if(mobileText) mobileText.textContent = 'บัญชีของฉัน — ' + currentUser.name;
+  } else {
+    if(btn){
+      btn.textContent = 'เข้าสู่ระบบ';
+      btn.setAttribute('onclick', "navigate('login')");
+    }
+    const mobileText = document.getElementById('mobileLoginText');
+    if(mobileText) mobileText.textContent = 'เข้าสู่ระบบ / สมัครสมาชิก';
   }
 }
 
@@ -1202,6 +1331,7 @@ document.addEventListener('click',(e)=>{
 // Close modal on Escape
 document.addEventListener('keydown',(e)=>{
   if(e.key==='Escape') closeModal();
+  if(e.key==='Escape') closeMenu();
 });
 
 
