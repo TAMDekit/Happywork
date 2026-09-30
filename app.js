@@ -1118,20 +1118,65 @@ function renderEmergency(){
 // ────────── QUICK CONSULT MODAL ──────────
 function renderQuickConsult(){
   const list = document.getElementById('quickConsultList');
-  // Show first 4 counselors
-  list.innerHTML = counselors.slice(0,4).map(c=>`
-    <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;border:1px solid var(--border);border-radius:var(--r-md);margin-bottom:12px;transition:all var(--dur) var(--ease);"
-         onmouseenter="this.style.boxShadow='var(--shadow-sm)';this.style.borderColor='var(--primary-200)'"
-         onmouseleave="this.style.boxShadow='none';this.style.borderColor='var(--border)'">
-      <div style="width:48px;height:48px;border-radius:50%;background:${c.gradient};display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;flex-shrink:0">${c.avatar}</div>
-      <div style="flex:1">
-        <h4 style="font-size:.95rem;font-weight:600;margin-bottom:2px">${c.name}</h4>
-        <p style="font-size:.8rem;color:var(--text-muted);margin-bottom:8px">${c.title}</p>
-        <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <a href="tel:${c.phone.replace(/-/g,'')}" class="btn btn-green btn-sm" style="padding:6px 14px;font-size:.78rem">📞 โทร</a>
-          <a href="https://line.me/R/ti/p/${c.line}" target="_blank" rel="noopener" class="btn btn-sm" style="padding:6px 14px;font-size:.78rem;background:#06C755;color:#fff">💬 LINE</a>
-          <a href="mailto:${c.email}" class="btn btn-outline btn-sm" style="padding:6px 14px;font-size:.78rem">📧 อีเมล</a>
+  if(!list) return;
+
+  const places = [
+    {
+      name: 'โรงพยาบาลมนารมย์',
+      badge: 'โรงพยาบาลเฉพาะทางจิตเวช',
+      location: 'ตั้งอยู่เขตบางนา กรุงเทพฯ',
+      icon: '🏥',
+      iconBg: 'var(--primary-100)',
+      iconColor: 'var(--primary-600)',
+      desc: 'โรงพยาบาลเอกชนเฉพาะทางด้านสุขภาพจิต ให้บริการตรวจวินิจฉัยและบำบัดรักษาอย่างครบวงจร',
+      phones: [
+        { label: '📞 02-725-9595', tel: '027259595' },
+        { label: '📞 02-032-9595', tel: '020329595' }
+      ]
+    },
+    {
+      name: 'กายใจคลินิก (Body and Mind Clinic)',
+      badge: 'คลินิกสุขภาพจิต',
+      location: 'อาคารจัตุรัสจามจุรี ชั้น 2 เขตปทุมวัน กรุงเทพฯ',
+      icon: '🌿',
+      iconBg: 'var(--green-100)',
+      iconColor: 'var(--green-600)',
+      desc: 'คลินิกเวชกรรมเฉพาะทางจิตเวช ให้บริการปรึกษาปัญหาความเครียด อารมณ์ นอนไม่หลับ และสุขภาพจิตคนทำงาน',
+      phones: [
+        { label: '📞 093-332-2511', tel: '0933322511' }
+      ]
+    },
+    {
+      name: 'ปีติ คลินิก (Piti Clinic)',
+      badge: 'คลินิกสุขภาพใจ',
+      location: 'กรุงเทพฯ',
+      icon: '💜',
+      iconBg: 'var(--lavender-100)',
+      iconColor: '#7C3AED',
+      desc: 'คลินิกสุขภาพจิตบรรยากาศอบอุ่น นัดหมายสะดวกทั้งช่องทาง LINE และโทรศัพท์',
+      line: '@piticlinic',
+      phones: [
+        { label: '📞 090-230-6000', tel: '0902306000' }
+      ]
+    }
+  ];
+
+  list.innerHTML = places.map(p => `
+    <div class="quick-consult-card">
+      <div class="qc-header">
+        <div class="qc-icon" style="background:${p.iconBg};color:${p.iconColor}">${p.icon}</div>
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
+            <h4 style="font-size:1.02rem;font-weight:700;color:var(--text);margin-bottom:2px">${p.name}</h4>
+            <span class="place-tag">${p.badge}</span>
+          </div>
+          <p style="font-size:.82rem;color:var(--text-muted);margin-top:2px">📍 ${p.location}</p>
         </div>
+      </div>
+      <p style="font-size:.84rem;color:var(--text-light);line-height:1.5;margin:10px 0 12px">${p.desc}</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        ${p.line ? `<a href="https://line.me/R/ti/p/${p.line}" target="_blank" rel="noopener" class="btn btn-sm" style="background:#06C755;color:#fff;padding:7px 16px;font-size:.82rem">💬 LINE ${p.line}</a>` : ''}
+        ${p.phones.map(ph => `<a href="tel:${ph.tel}" class="btn btn-primary btn-sm" style="padding:7px 16px;font-size:.82rem">${ph.label}</a>`).join('')}
       </div>
     </div>
   `).join('');

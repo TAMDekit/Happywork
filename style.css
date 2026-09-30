@@ -823,6 +823,86 @@ ul{list-style:none}
 .modal h2{font-size:1.35rem;font-weight:700;margin-bottom:20px}
 
 /* ========================================
+   HOME PAGE QUICK CONSULT (MENTAL HEALTH)
+   ======================================== */
+.quick-consult-home{
+  padding:80px 0;background:linear-gradient(180deg,var(--bg) 0%,#F1F8FA 100%);
+  position:relative;border-top:1px solid var(--border);
+}
+.badge-pill{
+  display:inline-block;padding:6px 18px;border-radius:var(--r-full);
+  background:var(--primary-100);color:var(--primary-700);
+  font-size:.82rem;font-weight:600;margin-bottom:12px;
+}
+.consult-places-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;
+}
+.consult-place-card{
+  background:var(--white);border:1px solid var(--border);border-radius:var(--r-xl);
+  padding:30px 26px;box-shadow:var(--shadow-sm);transition:all var(--dur) var(--ease);
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.consult-place-card:hover{
+  transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--primary-300);
+}
+.place-header{
+  display:flex;align-items:center;gap:14px;margin-bottom:16px;
+}
+.place-icon{
+  width:48px;height:48px;border-radius:var(--r-md);display:flex;align-items:center;
+  justify-content:center;font-size:1.4rem;flex-shrink:0;
+}
+.place-icon.blue{background:var(--primary-100);color:var(--primary-600)}
+.place-icon.green{background:var(--green-100);color:var(--green-600)}
+.place-icon.lavender{background:var(--lavender-100);color:#7C3AED}
+
+.consult-place-card h3{
+  font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:4px;
+}
+.place-tag{
+  display:inline-block;padding:3px 10px;border-radius:var(--r-full);
+  font-size:.74rem;font-weight:600;background:var(--primary-50);color:var(--primary-600);
+}
+.place-tag.green{background:var(--green-50);color:var(--green-600)}
+.place-tag.lavender{background:var(--lavender-50);color:#7C3AED}
+
+.place-body{margin-bottom:20px;flex:1}
+.place-location{
+  font-size:.86rem;color:var(--text);margin-bottom:8px;font-weight:500;
+}
+.place-desc{
+  font-size:.84rem;color:var(--text-light);line-height:1.6;
+}
+.place-footer .phone-buttons{
+  display:flex;gap:8px;flex-wrap:wrap;
+}
+
+.btn-line{
+  background:#06C755;color:var(--white);border-color:#06C755;
+}
+.btn-line:hover{
+  background:#05b34c;transform:translateY(-2px);box-shadow:0 4px 12px rgba(6,199,85,.25);
+}
+
+/* Modal Quick Consult Card */
+.quick-consult-card{
+  padding:20px;border:1px solid var(--border);border-radius:var(--r-lg);
+  margin-bottom:16px;background:var(--white);transition:all var(--dur) var(--ease);
+}
+.quick-consult-card:hover{
+  border-color:var(--primary-300);box-shadow:var(--shadow-sm);
+}
+.qc-header{display:flex;gap:14px;align-items:center}
+.qc-icon{
+  width:44px;height:44px;border-radius:var(--r-md);display:flex;align-items:center;
+  justify-content:center;font-size:1.3rem;flex-shrink:0;
+}
+
+@media(max-width:992px){
+  .consult-places-grid{grid-template-columns:1fr;gap:18px}
+}
+
+/* ========================================
    FOOTER
    ======================================== */
 .footer{
