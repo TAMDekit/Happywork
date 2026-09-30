@@ -49,20 +49,155 @@ const counselors = [
   }
 ];
 
-// ST-5 (แบบคัดกรองภาวะเครียด สวนปรุง, กรมสุขภาพจิต)
+// SPST-20 (แบบวัดความเครียดสวนปรุง 20 ข้อ — กรมสุขภาพจิต / มาตรฐาน Ooca)
 const stressQuestions = [
-  { text:'ในช่วง 2-4 สัปดาห์ที่ผ่านมา คุณมีปัญหาการนอน เช่น นอนไม่หลับ หลับยาก หรือนอนมากเกินไป', category:'sleep' },
-  { text:'ในช่วง 2-4 สัปดาห์ที่ผ่านมา คุณรู้สึกว่ามีสมาธิน้อยลง ทำงานผิดพลาดบ่อย หรือจดจ่อกับสิ่งใดสิ่งหนึ่งได้ยาก', category:'focus' },
-  { text:'ในช่วง 2-4 สัปดาห์ที่ผ่านมา คุณรู้สึกหงุดหงิดง่าย กระวนกระวาย ว้าวุ่นใจ หรือไม่สบายใจ', category:'irritability' },
-  { text:'ในช่วง 2-4 สัปดาห์ที่ผ่านมา คุณรู้สึกเบื่อหน่าย เซ็ง ท้อแท้ หรือหมดแรงจูงใจ', category:'boredom' },
-  { text:'ในช่วง 2-4 สัปดาห์ที่ผ่านมา คุณไม่อยากพบปะผู้คน อยากอยู่คนเดียว หรือหลีกเลี่ยงการเข้าสังคม', category:'isolation' }
+  {
+    id: 1,
+    text: 'นอนไม่หลับเพราะคิดมากหรือกังวลใจ',
+    textEn: 'Do you have difficulty falling asleep because of your frustrated mind or worry over something?',
+    category: 'physical',
+    image: 'images/stress_test/stress_test_question_1.png'
+  },
+  {
+    id: 2,
+    text: 'รู้สึกหงุดหงิด รำคาญใจ',
+    textEn: 'Do you often feel irritated or annoyed by something?',
+    category: 'emotional',
+    image: 'images/stress_test/stress_test_question_2.png'
+  },
+  {
+    id: 3,
+    text: 'ทำอะไรไม่ได้เลย เพราะประสาทตึงเครียด',
+    textEn: "Does it ever occur to you that you are so stressed out that you can't focus or do anything?",
+    category: 'cognitive',
+    image: 'images/stress_test/stress_test_question_3.png'
+  },
+  {
+    id: 4,
+    text: 'มีความวุ่นวายใจ',
+    textEn: 'How often do you feel upset?',
+    category: 'emotional',
+    image: 'images/stress_test/stress_test_question_4.png'
+  },
+  {
+    id: 5,
+    text: 'ไม่อยากพบปะผู้คน',
+    textEn: 'Have you ever feel like wanting to isolate yourself from other people?',
+    category: 'cognitive',
+    image: 'images/stress_test/stress_test_question_5.png'
+  },
+  {
+    id: 6,
+    text: 'ปวดหัวข้างเดียวหรือปวดบริเวณขมับทั้งสองข้าง',
+    textEn: 'How often do you have an headache on one side or pain at both of your temples?',
+    category: 'physical',
+    image: 'images/stress_test/stress_test_question_6.png'
+  },
+  {
+    id: 7,
+    text: 'รู้สึกไม่มีความสุขและเศร้าหมอง',
+    textEn: 'How often do you feel unhappy and sombre?',
+    category: 'emotional',
+    image: 'images/stress_test/stress_test_question_7.png'
+  },
+  {
+    id: 8,
+    text: 'รู้สึกหมดหวังในชีวิต',
+    textEn: 'How often do you feel hopeless?',
+    category: 'emotional',
+    image: 'images/stress_test/stress_test_question_8.png'
+  },
+  {
+    id: 9,
+    text: 'รู้สึกว่าชีวิตของตัวเองไม่มีคุณค่า',
+    textEn: 'How often do you feel worthless?',
+    category: 'emotional',
+    image: 'images/stress_test/stress_test_question_9.png'
+  },
+  {
+    id: 10,
+    text: 'กระวนกระวายตลอดเวลา',
+    textEn: 'How often do you feel restless or anxious?',
+    category: 'emotional',
+    image: 'images/stress_test/stress_test_question_10.png'
+  },
+  {
+    id: 11,
+    text: 'รู้สึกว่าตนเองไม่มีสมาธิ',
+    textEn: 'Do you feel that you have poor concentration?',
+    category: 'cognitive',
+    image: 'images/stress_test/stress_test_question_11.png'
+  },
+  {
+    id: 12,
+    text: 'รู้สึกเพลียจนไม่มีแรงจะทำอะไร',
+    textEn: "How often do you feel so exhausted that you don't want do anything?",
+    category: 'physical',
+    image: 'images/stress_test/stress_test_question_12.png'
+  },
+  {
+    id: 13,
+    text: 'รู้สึกเหนื่อยหน่ายไม่อยากทำอะไร',
+    textEn: "How often do you feel fatigued and you don't want to do anything?",
+    category: 'cognitive',
+    image: 'images/stress_test/stress_test_question_13.png'
+  },
+  {
+    id: 14,
+    text: 'มีอาการหัวใจเต้นแรง',
+    textEn: 'Have you ever experience when your heartbeat is racing so fast?',
+    category: 'physical',
+    image: 'images/stress_test/stress_test_question_14.png'
+  },
+  {
+    id: 15,
+    text: 'เสียงสั่น ปากสั่น หรือมือสั่นเวลาไม่พอใจ',
+    textEn: 'Do you have trembling voice, lips or hands when you are upset?',
+    category: 'physical',
+    image: 'images/stress_test/stress_test_question_15.png'
+  },
+  {
+    id: 16,
+    text: 'กลัวผิดพลาดในการทำสิ่งต่างๆ',
+    textEn: 'How often do you feel afraid of making mistakes?',
+    category: 'cognitive',
+    image: 'images/stress_test/stress_test_question_16.png'
+  },
+  {
+    id: 17,
+    text: 'ปวดหรือเกร็งกล้ามเนื้อบริเวณท้ายทอย หลัง หรือไหล่',
+    textEn: 'Do you have aches or strains around your occiput or shoulders?',
+    category: 'physical',
+    image: 'images/stress_test/stress_test_question_17.png'
+  },
+  {
+    id: 18,
+    text: 'ตื่นเต้นง่ายกับเหตุการณ์ที่ไม่คุ้นเคย',
+    textEn: 'Are you easily excited with unfamiliar events?',
+    category: 'emotional',
+    image: 'images/stress_test/stress_test_question_18.png'
+  },
+  {
+    id: 19,
+    text: 'มึนงงหรือเวียนศีรษะ',
+    textEn: 'Do you have dizziness or confusion?',
+    category: 'physical',
+    image: 'images/stress_test/stress_test_question_19.png'
+  },
+  {
+    id: 20,
+    text: 'ความสุขทางเพศลดลง',
+    textEn: 'Do have less sex-drive?',
+    category: 'physical',
+    image: 'images/stress_test/stress_test_question_20.png'
+  }
 ];
 
 const stressOptions = [
-  { label:'ไม่เลย', value:0 },
-  { label:'เล็กน้อย', value:1 },
-  { label:'ปานกลาง', value:2 },
-  { label:'มาก', value:3 }
+  { label: 'ไม่เคยเลย', labelEn: 'None', value: 0, badge: '0 คะแนน' },
+  { label: 'เป็นครั้งเป็นคราว', labelEn: 'Sometimes', value: 1, badge: '1 คะแนน' },
+  { label: 'เป็นบ่อย', labelEn: 'Often', value: 2, badge: '2 คะแนน' },
+  { label: 'เป็นประจำ', labelEn: 'Regularly', value: 3, badge: '3 คะแนน' }
 ];
 
 const articles = [
@@ -362,41 +497,77 @@ function searchTag(btn, tag){
 }
 
 
-// ────────── STRESS TEST ──────────
+// ────────── STRESS TEST (SPST-20 OOCA STANDARD) ──────────
 function renderStressTest(){
   const container = document.getElementById('testContainer');
+  if(!container) return;
+
   if(testState.completed){
     showResult();
     return;
   }
   if(!testState.started){
-    container.innerHTML = `
-      <div class="test-intro">
-        <h2>📋 แบบคัดกรองภาวะเครียด (ST-5)</h2>
-        <p>แบบคัดกรองนี้พัฒนาโดยกรมสุขภาพจิต กระทรวงสาธารณสุข ใช้เวลาประมาณ 2-3 นาที</p>
-        <div class="accent-line" style="margin:16px auto"></div>
-      </div>
-      <div class="test-warning">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        <div>
-          <strong>ข้อสำคัญ:</strong> แบบประเมินนี้เป็นเพียงเครื่องมือคัดกรองเบื้องต้นเท่านั้น <strong>ไม่ใช่การวินิจฉัยทางการแพทย์</strong> หากมีข้อกังวล กรุณาปรึกษาผู้เชี่ยวชาญด้านสุขภาพจิต
-        </div>
-      </div>
-      <div style="background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:32px;margin-top:24px">
-        <h3 style="font-size:1.1rem;margin-bottom:16px">📝 คำอธิบาย</h3>
-        <p style="color:var(--text-light);font-size:.92rem;margin-bottom:12px">แบบคัดกรองนี้ประกอบด้วย <strong>5 ข้อ</strong> แต่ละข้อถามเกี่ยวกับอาการที่คุณอาจพบในช่วง <strong>2-4 สัปดาห์ที่ผ่านมา</strong></p>
-        <p style="color:var(--text-light);font-size:.92rem;margin-bottom:24px">ตอบตามความรู้สึกจริงของคุณ ไม่มีคำตอบถูกหรือผิด ข้อมูลของคุณจะไม่ถูกจัดเก็บ</p>
-        <button class="btn btn-primary" onclick="startTest()" style="width:100%;justify-content:center">
-          เริ่มทำแบบประเมิน →
-        </button>
-      </div>`;
+    renderStartScreen();
     return;
   }
   showQuestion();
 }
 
+function renderStartScreen(){
+  const container = document.getElementById('testContainer');
+  container.innerHTML = `
+    <div class="test-start-card">
+      <div class="test-start-badge">
+        <span>📋 แบบวัดความเครียดสวนปรุง (SPST-20)</span>
+      </div>
+      <img src="images/stress_test/stress_test_question_start.png" alt="เริ่มทำแบบทดสอบ" class="test-start-illustration" onerror="this.style.display='none'">
+      <h2>คุณกำลังเครียด<br>อยู่หรือเปล่า? 😣</h2>
+      <p class="subtitle">
+        สำรวจระดับความเครียดของตัวเองด้วยแบบประเมินมาตรฐาน 20 ข้อจากกรมสุขภาพจิต (อ้างอิงมาตรฐานเดียวกับ Ooca) ใช้เวลาประมาณ 4-5 นาที
+      </p>
+
+      <div class="test-meta-grid">
+        <div class="test-meta-item">
+          <div class="meta-icon">⏱️</div>
+          <div class="meta-title">20 ข้อคำถาม</div>
+          <div class="meta-desc">ใช้เวลา 4 - 5 นาที</div>
+        </div>
+        <div class="test-meta-item">
+          <div class="meta-icon">🔒</div>
+          <div class="meta-title">เป็นความลับ 100%</div>
+          <div class="meta-desc">ไม่มีการเก็บข้อมูลระบุตัวตน</div>
+        </div>
+        <div class="test-meta-item">
+          <div class="meta-icon">📊</div>
+          <div class="meta-title">ผลประเมินแม่นยำ</div>
+          <div class="meta-desc">จำแนก 5 ระดับมาตรฐาน</div>
+        </div>
+      </div>
+
+      <div class="test-timeframe-note">
+        <span>💡 <strong>คำแนะนำ:</strong> โปรดเลือกคำตอบที่ตรงกับความรู้สึกและอาการที่เกิดขึ้นกับคุณ <strong>ภายใน 2 เดือนที่ผ่านมา</strong></span>
+      </div>
+
+      <div class="test-warning" style="text-align:left;margin-bottom:28px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div style="font-size:.85rem">
+          แบบทดสอบนี้เป็นเครื่องมือคัดกรองเบื้องต้นเพื่อความตระหนักรู้ <strong>ไม่ใช่การวินิจฉัยทางการแพทย์</strong> หากคุณรู้สึกไม่ปลอดภัยหรือมีความทุกข์ใจอย่างหนัก สามารถติดต่อสายด่วนสุขภาพจิต 1323 ได้ตลอด 24 ชั่วโมง
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="startTest()" style="width:100%;max-width:380px;margin:0 auto;justify-content:center;padding:16px 28px;font-size:1.05rem">
+        เริ่มทำแบบทดสอบ →
+      </button>
+    </div>`;
+}
+
 function startTest(){
-  testState = { currentQ:0, answers:new Array(stressQuestions.length).fill(-1), started:true, completed:false };
+  testState = {
+    currentQ: 0,
+    answers: new Array(stressQuestions.length).fill(-1),
+    started: true,
+    completed: false
+  };
   showQuestion();
 }
 
@@ -404,44 +575,122 @@ function showQuestion(){
   const container = document.getElementById('testContainer');
   const q = testState.currentQ;
   const total = stressQuestions.length;
-  const pct = ((q)/total)*100;
+  const current = stressQuestions[q];
   const answered = testState.answers[q];
+  const answeredCount = testState.answers.filter(a => a !== -1).length;
+  const progressPct = Math.round(((q + 1) / total) * 100);
 
   container.innerHTML = `
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-      <span style="font-size:.85rem;color:var(--text-muted)">ข้อ ${q+1} จาก ${total}</span>
-      <span style="font-size:.85rem;color:var(--text-muted)">${Math.round(pct)}%</span>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
-    <div class="question-card">
-      <div class="q-number">คำถามข้อที่ ${q+1}</div>
-      <div class="q-text">${stressQuestions[q].text}</div>
-      <div class="options">
-        ${stressOptions.map(o=>`
-          <button class="option-btn ${answered===o.value?'selected':''}" onclick="selectOption(${o.value})">
-            ${o.label}
-          </button>
-        `).join('')}
+    <div class="question-top-bar">
+      <div class="q-counter">
+        <span>คำถามข้อที่ <strong>${q + 1}</strong> จาก ${total}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <span class="q-percent">${progressPct}%</span>
+        <button class="q-quit-btn" onclick="confirmQuitTest()" title="ออกจากการทดสอบ">✕ ออก</button>
       </div>
     </div>
-    <div class="test-nav">
-      <button class="btn btn-outline btn-sm" onclick="${q>0?'prevQuestion()':'resetTest()'}" ${q===0?'style="opacity:.5"':''}>
-        ← ${q>0?'ข้อก่อนหน้า':'กลับ'}
-      </button>
-      <button class="btn btn-primary btn-sm" onclick="nextQuestion()" ${answered===-1?'disabled style="opacity:.4;pointer-events:none"':''}>
-        ${q===total-1?'ดูผลลัพธ์ →':'ข้อถัดไป →'}
-      </button>
-    </div>`;
+
+    <div class="test-progress-bar">
+      <div class="test-progress-fill" style="width:${progressPct}%"></div>
+    </div>
+
+    <!-- 20 Question Dots Quick Selector -->
+    <div class="test-dots-nav">
+      ${stressQuestions.map((_, idx) => {
+        const isAnswered = testState.answers[idx] !== -1;
+        const isActive = idx === q;
+        const cls = isActive ? 'test-dot active' : (isAnswered ? 'test-dot answered' : 'test-dot');
+        return `<button class="${cls}" onclick="goToQuestion(${idx})" title="ข้อ ${idx + 1}">${idx + 1}</button>`;
+      }).join('')}
+    </div>
+
+    <div class="test-question-card">
+      <div class="question-instruction-tag">
+        ⏱️ ความรู้สึกของคุณภายใน 2 เดือนนี้
+      </div>
+
+      <div class="question-image-wrap">
+        <img src="${current.image}" alt="คำถามข้อที่ ${q + 1}" onerror="this.parentElement.style.display='none'">
+      </div>
+
+      <div class="q-title">${current.text}</div>
+      <div class="q-subtitle">${current.textEn}</div>
+
+      <div class="options-grid">
+        ${stressOptions.map(opt => {
+          const isSelected = answered === opt.value;
+          return `
+            <button class="option-card-btn ${isSelected ? 'selected' : ''}" onclick="selectOption(${opt.value})">
+              <div class="option-left">
+                <span class="option-indicator"></span>
+                <div class="option-text-group">
+                  <span class="option-main-text">${opt.label}</span>
+                  <span class="option-sub-text">${opt.labelEn}</span>
+                </div>
+              </div>
+              <span class="option-score-badge">${opt.badge}</span>
+            </button>
+          `;
+        }).join('')}
+      </div>
+
+      <div class="test-nav-bar">
+        <button class="btn btn-outline btn-sm" onclick="prevQuestion()" ${q === 0 ? 'disabled style="opacity:.4;pointer-events:none"' : ''}>
+          ← ข้อก่อนหน้า
+        </button>
+        <button class="btn btn-primary btn-sm" onclick="nextQuestion()" ${answered === -1 ? 'disabled style="opacity:.4;pointer-events:none"' : ''}>
+          ${q === total - 1 ? 'ประเมินผลลัพธ์ 🎉' : 'ข้อถัดไป →'}
+        </button>
+      </div>
+    </div>
+  `;
 }
 
 function selectOption(value){
-  testState.answers[testState.currentQ] = value;
-  showQuestion();
+  const q = testState.currentQ;
+  testState.answers[q] = value;
+
+  // Immediate visual update on options
+  const optionBtns = document.querySelectorAll('.option-card-btn');
+  optionBtns.forEach((btn, idx) => {
+    btn.classList.toggle('selected', idx === value);
+  });
+
+  // Highlight dot
+  const dots = document.querySelectorAll('.test-dot');
+  if(dots[q]) dots[q].classList.add('answered');
+
+  // Auto advance smoothly after brief click acknowledgment (250ms)
+  setTimeout(() => {
+    if(testState.currentQ < stressQuestions.length - 1){
+      testState.currentQ++;
+      showQuestion();
+      window.scrollTo({ top: 120, behavior: 'smooth' });
+    } else {
+      // Check if all answered
+      const allAnswered = testState.answers.every(a => a !== -1);
+      if(allAnswered){
+        testState.completed = true;
+        showResult();
+        window.scrollTo({ top: 120, behavior: 'smooth' });
+      } else {
+        showQuestion();
+      }
+    }
+  }, 220);
+}
+
+function goToQuestion(idx){
+  if(idx >= 0 && idx < stressQuestions.length){
+    testState.currentQ = idx;
+    showQuestion();
+  }
 }
 
 function nextQuestion(){
-  if(testState.answers[testState.currentQ]===-1) return;
-  if(testState.currentQ < stressQuestions.length-1){
+  if(testState.answers[testState.currentQ] === -1) return;
+  if(testState.currentQ < stressQuestions.length - 1){
     testState.currentQ++;
     showQuestion();
   } else {
@@ -451,73 +700,226 @@ function nextQuestion(){
 }
 
 function prevQuestion(){
-  if(testState.currentQ>0){
+  if(testState.currentQ > 0){
     testState.currentQ--;
     showQuestion();
   }
 }
 
+function confirmQuitTest(){
+  const answeredCount = testState.answers.filter(a => a !== -1).length;
+  if(answeredCount > 0){
+    if(confirm('คุณต้องการออกจากการทำแบบทดสอบหรือไม่? (ข้อมูลที่ตอบไว้จะถูกรีเซ็ต)')){
+      resetTest();
+    }
+  } else {
+    resetTest();
+  }
+}
+
 function resetTest(){
-  testState = { currentQ:0, answers:[], started:false, completed:false };
+  testState = {
+    currentQ: 0,
+    answers: new Array(stressQuestions.length).fill(-1),
+    started: false,
+    completed: false
+  };
   renderStressTest();
 }
 
 function showResult(){
   const container = document.getElementById('testContainer');
-  const total = testState.answers.reduce((a,b)=>a+b,0);
-  let level, levelClass, icon, advice;
+  const total = testState.answers.reduce((acc, v) => acc + (v > -1 ? v : 0), 0);
 
-  if(total<=4){
-    level='เครียดน้อย (ปกติ)';
-    levelClass='low';
-    icon='😊';
-    advice=`<p><strong>ผลประเมิน:</strong> ระดับความเครียดของคุณอยู่ในเกณฑ์ปกติ</p>
-<p>คุณดูแลสุขภาพจิตได้ดีมาก! แนะนำให้รักษาสมดุลชีวิตที่ดีไว้ และหากมีเรื่องใดที่กังวลใจ อย่าลังเลที่จะพูดคุยกับคนที่ไว้ใจ</p>
-<p>💡 <strong>คำแนะนำ:</strong> ออกกำลังกายสม่ำเสมอ พักผ่อนให้เพียงพอ และทำกิจกรรมที่ชอบ</p>`;
-  } else if(total<=7){
-    level='เครียดปานกลาง';
-    levelClass='moderate';
-    icon='😐';
-    advice=`<p><strong>ผลประเมิน:</strong> คุณมีความเครียดในระดับปานกลาง</p>
-<p>ความเครียดระดับนี้ยังจัดการได้ด้วยตัวเอง แต่ควรเริ่มหาวิธีผ่อนคลายและดูแลตัวเองมากขึ้น</p>
-<p>💡 <strong>คำแนะนำ:</strong></p>
-<ul style="padding-left:20px;margin-top:8px"><li>ฝึกเทคนิคหายใจเพื่อผ่อนคลาย</li><li>จัดเวลาพักผ่อนให้เพียงพอ</li><li>พูดคุยกับคนที่ไว้ใจ</li><li>ลองอ่านบทความเกี่ยวกับการจัดการความเครียด</li></ul>`;
-  } else if(total<=11){
-    level='เครียดมาก';
-    levelClass='high';
-    icon='😟';
-    advice=`<p><strong>ผลประเมิน:</strong> คุณมีความเครียดในระดับสูง</p>
-<p>ความเครียดระดับนี้อาจส่งผลกระทบต่อสุขภาพร่างกายและจิตใจ <strong>แนะนำอย่างยิ่งให้ปรึกษาผู้เชี่ยวชาญ</strong></p>
-<p>💡 <strong>คำแนะนำ:</strong></p>
-<ul style="padding-left:20px;margin-top:8px"><li>นัดพบผู้เชี่ยวชาญด้านสุขภาพจิต</li><li>พูดคุยกับคนที่ไว้ใจเกี่ยวกับสิ่งที่คุณรู้สึก</li><li>พยายามพักผ่อนให้เพียงพอ</li><li>หากรู้สึกท่วมท้น โทรสายด่วนสุขภาพจิต 1323</li></ul>`;
+  // Exact Ooca / DMH SPST-20 criteria (0-60 scale)
+  let level, levelClass, badge, imgResult, title, body, isUrgent = false;
+
+  if(total <= 5){
+    level = 0;
+    levelClass = 'level-0';
+    badge = '🌿 ต่ำกว่าเกณฑ์ (0-5 คะแนน)';
+    imgResult = 'images/stress_test/stress_test_below_result.png';
+    title = 'ต่ำกว่าเกณฑ์';
+    body = `
+      <p>ความเครียดในระดับต่ำมากเช่นนี้ อาจมีความหมายอย่างใดอย่างหนึ่ง เช่น ตอบคำถามไม่ตรงความเป็นจริง, เข้าใจคำถามคลาดเคลื่อน, หรือเป็นช่วงเวลาที่ขาดแรงจูงใจ มีความเฉื่อยชา หรือชีวิตประจำวันซ้ำซากจำเจ</p>
+      <p>💡 <strong>คำแนะนำ:</strong> แนะนำให้ทำแบบทดสอบอีกครั้งเพื่อให้ได้ผลที่แม่นยำมากยิ่งขึ้น หรือลองหาแรงบันดาลใจ กิจกรรมใหม่ๆ และตั้งเป้าหมายเล็กๆ ในแต่ละวันเพื่อเพิ่มพลังใจในการทำงาน</p>
+    `;
+  } else if(total <= 17){
+    level = 1;
+    levelClass = 'level-1';
+    badge = '😊 ปกติ (6-17 คะแนน)';
+    imgResult = 'images/stress_test/stress_test_normal_result.png';
+    title = 'ปกติ';
+    body = `
+      <p><strong>ยินดีด้วยครับ!</strong> คุณสามารถจัดการกับความเครียดที่เกิดขึ้นในชีวิตประจำวันและปรับตัวกับสถานการณ์ต่างๆ ได้อย่างเหมาะสม มีความพึงพอใจเกี่ยวกับตนเองและสภาพแวดล้อมรอบตัว</p>
+      <p>💡 <strong>คำแนะนำ:</strong> ความเครียดในระดับนี้ถือว่า <strong>มีประโยชน์ในการดำเนินชีวิตประจำวัน</strong> เป็นพลังขับเคลื่อนและแรงจูงใจที่นำไปสู่ความสำเร็จ ควรรักษาสมดุล Work-Life Balance และดูแลสุขภาพอย่างต่อเนื่อง</p>
+    `;
+  } else if(total <= 25){
+    level = 2;
+    levelClass = 'level-2';
+    badge = '⚠️ สูงกว่าปกติเล็กน้อย (18-25 คะแนน)';
+    imgResult = 'images/stress_test/stress_test_little_result.png';
+    title = 'สูงกว่าปกติเล็กน้อย';
+    body = `
+      <p>ถือว่าเป็นระดับความเครียดที่สามารถพบได้บ่อยในชีวิตประจำวันของคนทำงาน คุณอาจเริ่มมีความเหนื่อยล้าสะสมโดยไม่รู้ตัว</p>
+      <p>💡 <strong>คำแนะนำ:</strong> แนะนำให้พูดคุยกับผู้ที่ไว้วางใจเพื่อระบายความรู้สึก หรือจัดสรรเวลาผ่อนคลายความเครียด เช่น ดูหนัง ฟังเพลง ออกกำลังกายเบาๆ หรือฝึกเทคนิคการหายใจ หากรู้สึกว่าอาการเริ่มรบกวนงาน การปรึกษานักจิตวิทยาสามารถช่วยป้องกันภาวะหมดไฟได้</p>
+    `;
+  } else if(total <= 29){
+    level = 3;
+    levelClass = 'level-3';
+    badge = '⚡ สูงกว่าปกติปานกลาง (26-29 คะแนน)';
+    imgResult = 'images/stress_test/stress_test_moderately_result.png';
+    title = 'สูงกว่าปกติปานกลาง';
+    isUrgent = true;
+    body = `
+      <p>หากไม่สามารถจัดการคลี่คลายปัญหาด้วยตนเองได้ <strong>ควรปรึกษาปัญหากับจิตแพทย์ นักจิตวิทยา หรือผู้ที่ไว้วางใจ</strong></p>
+      <p>💡 <strong>คำแนะนำ:</strong> ความเครียดระดับนี้เป็นสัญญาณเตือนขั้นต้นว่าท่านกำลังเผชิญภาวะวิกฤต หรือแรงกดดันที่เริ่มจัดการแก้ไขได้ยาก จำเป็นต้องหาวิธีลดภาระงาน ปรับสมดุลอารมณ์ และพิจารณารับคำปรึกษาจากมืออาชีพ</p>
+    `;
   } else {
-    level='เครียดมากที่สุด';
-    levelClass='critical';
-    icon='😢';
-    advice=`<p><strong>ผลประเมิน:</strong> คุณมีความเครียดในระดับสูงมาก</p>
-<p><strong>กรุณาปรึกษาผู้เชี่ยวชาญด้านสุขภาพจิตโดยเร็ว</strong> อย่าเก็บปัญหาไว้คนเดียว มีคนพร้อมช่วยเหลือคุณ</p>
-<p>📞 <strong>สายด่วนสุขภาพจิต:</strong> <a href="tel:1323" style="color:var(--coral-500);font-weight:600">โทร 1323</a> (บริการ 24 ชม.)</p>
-<p>💡 <strong>คำแนะนำเร่งด่วน:</strong></p>
-<ul style="padding-left:20px;margin-top:8px"><li>นัดพบจิตแพทย์หรือนักจิตวิทยาคลินิก</li><li>โทรสายด่วนสุขภาพจิตเพื่อรับคำปรึกษาเบื้องต้น</li><li>พูดคุยกับคนที่ไว้ใจ อย่าอยู่คนเดียว</li></ul>`;
+    level = 4;
+    levelClass = 'level-4';
+    badge = '🚨 สูงกว่าปกติมาก (30-60 คะแนน)';
+    imgResult = 'images/stress_test/stress_test_severely_result.png';
+    title = 'สูงกว่าปกติมาก';
+    isUrgent = true;
+    body = `
+      <p><strong>พิจารณารับการปรึกษาปัญหาสุขภาพจิตกับจิตแพทย์หรือนักจิตวิทยาทันที</strong> ซึ่งจะช่วยให้ท่านมองเห็นปัญหาและแนวทางแก้ไขที่ชัดเจนและเหมาะสม</p>
+      <p>💡 <strong>คำแนะนำ:</strong> ความเครียดในระดับนี้ถือว่ามีความรุนแรงมาก และอาจส่งผลกระทบต่อทั้งระบบร่างกายและการทำงาน หากปล่อยไว้โดยไม่ได้รับการดูแลอาจนำไปสู่ภาวะซึมเศร้าหรือหมดไฟรุนแรง อย่าแบกรับไว้เพียงลำพัง</p>
+    `;
   }
 
+  // Calculate Subscores
+  // Physical: items 1, 6, 12, 14, 15, 17, 19, 20 (8 items, max 24)
+  const physicalIndices = [0, 5, 11, 13, 14, 16, 18, 19];
+  const physicalScore = physicalIndices.reduce((sum, i) => sum + (testState.answers[i] > -1 ? testState.answers[i] : 0), 0);
+
+  // Emotional: items 2, 4, 7, 8, 9, 10, 18 (7 items, max 21)
+  const emotionalIndices = [1, 3, 6, 7, 8, 9, 17];
+  const emotionalScore = emotionalIndices.reduce((sum, i) => sum + (testState.answers[i] > -1 ? testState.answers[i] : 0), 0);
+
+  // Cognitive & Work: items 3, 5, 11, 13, 16 (5 items, max 15)
+  const cognitiveIndices = [2, 4, 10, 12, 15];
+  const cognitiveScore = cognitiveIndices.reduce((sum, i) => sum + (testState.answers[i] > -1 ? testState.answers[i] : 0), 0);
+
   container.innerHTML = `
-    <div class="result-card">
-      <div class="result-icon">${icon}</div>
-      <h3>ผลการประเมินความเครียด</h3>
-      <div class="result-score">คะแนนรวม: ${total} / 15</div>
-      <div class="result-level ${levelClass}">${level}</div>
-      <div class="result-advice">${advice}</div>
-      <div class="test-warning" style="text-align:left;margin-bottom:24px">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        <div style="font-size:.85rem">แบบประเมินนี้เป็นเพียงเครื่องมือคัดกรองเบื้องต้น ไม่ใช่การวินิจฉัยทางการแพทย์ หากต้องการความช่วยเหลือ กรุณาปรึกษาผู้เชี่ยวชาญ</div>
+    <div class="result-container">
+      <!-- Hero Result Card -->
+      <div class="result-hero-card ${levelClass}">
+        <img src="${imgResult}" alt="${title}" class="result-hero-illustration" onerror="this.style.display='none'">
+        <div class="result-pre-title">ความเครียดของคุณอยู่ในระดับ...</div>
+        <div class="result-title">${title}</div>
+        
+        <div class="result-score-pill">
+          <span>คะแนนรวม: <strong>${total}</strong> / 60</span>
+        </div>
+
+        <!-- Visual Score Gauge -->
+        <div class="score-gauge-wrap">
+          <div class="score-gauge-label">
+            <span>เกณฑ์ประเมิน SPST-20</span>
+            <span>ระดับปัจจุบัน: ${title}</span>
+          </div>
+          <div class="score-gauge-track">
+            <div class="gauge-seg seg-0" title="ต่ำกว่าเกณฑ์: 0-5" style="opacity:${level===0?1:0.4}"></div>
+            <div class="gauge-seg seg-1" title="ปกติ: 6-17" style="opacity:${level===1?1:0.4}"></div>
+            <div class="gauge-seg seg-2" title="เล็กน้อย: 18-25" style="opacity:${level===2?1:0.4}"></div>
+            <div class="gauge-seg seg-3" title="ปานกลาง: 26-29" style="opacity:${level===3?1:0.4}"></div>
+            <div class="gauge-seg seg-4" title="สูงมาก: 30-60" style="opacity:${level===4?1:0.4}"></div>
+          </div>
+          <div class="score-gauge-ticks">
+            <span>0</span>
+            <span>6</span>
+            <span>18</span>
+            <span>26</span>
+            <span>30</span>
+            <span>60</span>
+          </div>
+        </div>
       </div>
-      <div class="result-actions">
-        ${total>=8?`<button class="btn btn-coral" onclick="navigate('counselor')">🔍 หาที่ปรึกษาตอนนี้</button>`:''}
-        <button class="btn btn-primary" onclick="navigate('emergency')">📞 เบอร์โทรฉุกเฉิน</button>
-        <button class="btn btn-outline" onclick="resetTest()">🔄 ทำแบบประเมินอีกครั้ง</button>
+
+      <!-- Urgent Help Banner if moderate or high -->
+      ${isUrgent ? `
+        <div class="result-urgent-alert">
+          <div>
+            <h4>🚨 ต้องการความช่วยเหลือทันที?</h4>
+            <p>คุณสามารถพูดคุยกับผู้เชี่ยวชาญจากสายด่วนสุขภาพจิตได้ฟรี ตลอด 24 ชั่วโมง</p>
+          </div>
+          <a href="tel:1323" class="btn-urgent">
+            📞 โทร 1323 (สายด่วนสุขภาพจิต)
+          </a>
+        </div>
+      ` : ''}
+
+      <!-- Sub-score Breakdown -->
+      <div class="subscores-grid">
+        <div class="subscore-card">
+          <div class="sub-icon">🩺</div>
+          <div class="sub-title">อาการทางกาย</div>
+          <div class="sub-val">${physicalScore} / 24</div>
+          <div class="sub-desc">การนอน, อาการปวดหัว, ความเมื่อยล้า, หัวใจเต้นแรง</div>
+        </div>
+        <div class="subscore-card">
+          <div class="sub-icon">💭</div>
+          <div class="sub-title">อารมณ์และจิตใจ</div>
+          <div class="sub-val">${emotionalScore} / 21</div>
+          <div class="sub-desc">ความหงุดหงิด, ว้าวุ่น, เศร้าหมอง, ความวิตกกังวล</div>
+        </div>
+        <div class="subscore-card">
+          <div class="sub-icon">💼</div>
+          <div class="sub-title">สมาธิและการทำงาน</div>
+          <div class="sub-val">${cognitiveScore} / 15</div>
+          <div class="sub-desc">สมาธิในการทำงาน, ความเหนื่อยหน่าย, การเข้าสังคม</div>
+        </div>
       </div>
-    </div>`;
+
+      <!-- Detailed Advice Card -->
+      <div class="result-detail-card">
+        <h3>📋 รายละเอียดและคำแนะนำ</h3>
+        ${body}
+        
+        <div class="accent-line" style="margin:20px 0"></div>
+        <p style="font-size:.85rem;color:var(--text-muted);margin-bottom:0">
+          * แบบประเมินนี้ใช้เพื่อการคัดกรองเบื้องต้นตามเกณฑ์ของกรมสุขภาพจิต ไม่สามารถใช้แทนการตรวจวินิจฉัยโดยแพทย์ผู้เชี่ยวชาญได้
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="result-action-bar">
+        <button class="btn btn-primary" onclick="navigate('counselor')">
+          👩‍⚕️ ปรึกษาผู้เชี่ยวชาญ Happy Work
+        </button>
+        <button class="btn btn-outline" onclick="navigate('articles')">
+          📖 ดูบทความจัดการความเครียด
+        </button>
+        <button class="btn btn-outline" onclick="shareStressResult(${total}, '${title}')">
+          🔗 แชร์ผลการทดสอบ
+        </button>
+        <button class="btn btn-outline" onclick="resetTest()">
+          🔄 ประเมินอีกครั้ง
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function shareStressResult(total, title){
+  const text = `ฉันได้ทำแบบประเมินความเครียดมาตรฐาน (SPST-20) บน Happy Work ผลลัพธ์: ระดับ ${title} (${total}/60 คะแนน) ลองประเมินความเครียดของคุณได้ที่นี่`;
+  const url = window.location.href;
+
+  if(navigator.share){
+    navigator.share({
+      title: 'ผลการประเมินความเครียด — Happy Work',
+      text: text,
+      url: url
+    }).catch(()=>{});
+  } else {
+    // Copy to clipboard
+    navigator.clipboard.writeText(`${text}\n${url}`).then(() => {
+      showToast('📋 คัดลอกผลการประเมินเรียบร้อยแล้ว!');
+    }).catch(() => {
+      showToast('ระดับความเครียดของคุณ: ' + title);
+    });
+  }
 }
 
 
