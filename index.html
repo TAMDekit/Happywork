@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Happy Work — พื้นที่ปลอดภัย ให้คุณทำงานอย่างมีความสุข</title>
+  <meta name="description" content="Happy Work — พื้นที่ปลอดภัยสำหรับคนทำงาน พร้อมที่ปรึกษาด้านสุขภาพจิตและแบบประเมินความเครียด" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="#home" class="logo" onclick="navigate('home')">
+      <!-- Logo SVG: happy leaf -->
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="20" fill="url(#logoGrad)"/>
+        <path d="M12 28c0-10 8-16 16-16-2 6-6 10-10 12 4-1 8-3 10-6 0 8-6 14-14 14a8 8 0 01-2-.4" fill="#fff" opacity=".9"/>
+        <path d="M16 27c2-6 6-10 10-12" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".7"/>
+        <defs><linearGradient id="logoGrad" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#7EC8E3"/><stop offset="1" stop-color="#6BBF72"/></linearGradient></defs>
+      </svg>
+      <span>Happy Work</span>
+    </a>
+
+    <div class="nav-links" id="navLinks">
+      <a href="#home" class="active" data-page="home" onclick="navigate('home')">หน้าแรก</a>
+      <a href="#counselor" data-page="counselor" onclick="navigate('counselor')">หาที่ปรึกษา</a>
+      <a href="#stress-test" data-page="stress-test" onclick="navigate('stress-test')">แบบทดสอบความเครียด</a>
+      <a href="#articles" data-page="articles" onclick="navigate('articles')">บทความ</a>
+      <a href="#emergency" data-page="emergency" onclick="navigate('emergency')">เบอร์ฉุกเฉิน</a>
+      <a href="#login" data-page="login" class="btn-login" onclick="navigate('login')">เข้าสู่ระบบ</a>
+    </div>
+
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HOME PAGE ============ -->
+<div class="page active" id="page-home">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>พื้นที่ปลอดภัย<br>ให้คุณทำงานอย่างมีความสุข</h1>
+        <p>พื้นที่ปลอดภัยสำหรับคนทำงาน พร้อมที่ปรึกษาและแบบประเมินความเครียด ดูแลสุขภาพจิตของคุณได้ทุกที่ทุกเวลา</p>
+        <div class="hero-buttons">
+          <button class="btn btn-primary" onclick="openQuickConsult()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+            นัดปรึกษาทันที
+          </button>
+          <button class="btn btn-outline" onclick="navigate('stress-test')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            ประเมินความเครียดฟรี
+          </button>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="images/hero.jpg" alt="คนทำงานในออฟฟิศพูดคุยกันอย่างมีความสุข" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="container">
+      <div class="section-header">
+        <h2>บริการของเรา</h2>
+        <p>เราพร้อมดูแลสุขภาพจิตของคุณด้วยบริการที่ครบครัน</p>
+        <div class="accent-line"></div>
+      </div>
+      <div class="features-grid">
+        <!-- Card 1 -->
+        <div class="feature-card" onclick="navigate('counselor')">
+          <div class="feature-icon blue">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <h3>ค้นหาที่ปรึกษา</h3>
+          <p>ค้นหาที่ปรึกษาตามปัญหาที่คุณเผชิญ เช่น Burnout ความเครียดจากงาน หรือความสัมพันธ์ในที่ทำงาน</p>
+        </div>
+        <!-- Card 2 -->
+        <div class="feature-card">
+          <div class="feature-icon green">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          </div>
+          <h3>ช่องทางปรึกษาหลากหลาย</h3>
+          <p>เลือกช่องทางที่สะดวกสำหรับคุณ — แชท โทรศัพท์ หรือวิดีโอคอล ปรึกษาได้ทุกที่ทุกเวลา</p>
+        </div>
+        <!-- Card 3 -->
+        <div class="feature-card">
+          <div class="feature-icon coral">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>รับประกันความเป็นส่วนตัว</h3>
+          <p>ข้อมูลของคุณเป็นความลับ 100% ปลอดภัยด้วยระบบรักษาความปลอดภัยมาตรฐานสูงสุด</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============ COUNSELOR PAGE ============ -->
+<div class="page" id="page-counselor">
+  <div class="search-hero">
+    <h2>🔍 ค้นหาที่ปรึกษาที่เหมาะกับคุณ</h2>
+    <p>พิมพ์ปัญหาหรือชื่อที่ปรึกษาที่ต้องการค้นหา</p>
+    <div class="search-box">
+      <span class="search-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </span>
+      <input type="text" id="counselorSearch" placeholder="ค้นหาด้วยชื่อ, ปัญหา เช่น Burnout, ความเครียดจากงาน..." oninput="filterCounselors()" />
+    </div>
+    <div class="search-tags" id="searchTags">
+      <button onclick="searchTag(this,'Burnout')">🔥 Burnout</button>
+      <button onclick="searchTag(this,'ความเครียดจากงาน')">😰 ความเครียดจากงาน</button>
+      <button onclick="searchTag(this,'ความขัดแย้งกับเพื่อนร่วมงาน')">🤝 ปัญหาเพื่อนร่วมงาน</button>
+      <button onclick="searchTag(this,'ปัญหากับหัวหน้า')">👔 ปัญหากับหัวหน้า</button>
+      <button onclick="searchTag(this,'Work-Life Balance')">⚖️ Work-Life Balance</button>
+      <button onclick="searchTag(this,'ภาวะซึมเศร้า')">🌧️ ภาวะซึมเศร้า</button>
+    </div>
+  </div>
+  <div class="container">
+    <div class="counselor-grid" id="counselorGrid">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ============ STRESS TEST PAGE ============ -->
+<div class="page" id="page-stress-test">
+  <div class="test-container" id="testContainer">
+    <!-- Rendered by JS -->
+  </div>
+</div>
+
+<!-- ============ ARTICLES PAGE ============ -->
+<div class="page" id="page-articles">
+  <div class="container">
+    <div class="articles-header">
+      <h2>📖 บทความสุขภาพจิต</h2>
+      <p>ความรู้ดี ๆ เพื่อดูแลจิตใจของคนทำงาน</p>
+      <div class="accent-line" style="margin:16px auto"></div>
+    </div>
+    <div class="category-tabs" id="categoryTabs">
+      <button class="active" onclick="filterArticles(this,'all')">ทั้งหมด</button>
+      <button onclick="filterArticles(this,'stress')">ความเครียด</button>
+      <button onclick="filterArticles(this,'burnout')">Burnout</button>
+      <button onclick="filterArticles(this,'self-care')">Self-Care</button>
+      <button onclick="filterArticles(this,'workplace')">ที่ทำงาน</button>
+    </div>
+    <div class="articles-grid" id="articlesGrid">
+      <!-- Rendered by JS -->
+    </div>
+    <!-- Full article view -->
+    <div class="article-full" id="articleFull" style="display:none">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ============ LOGIN PAGE ============ -->
+<div class="page" id="page-login">
+  <div class="auth-container" id="authContainer">
+    <!-- Rendered by JS -->
+  </div>
+</div>
+
+<!-- ============ EMERGENCY PAGE ============ -->
+<div class="page" id="page-emergency">
+  <div class="emergency-container" id="emergencyContainer">
+    <!-- Rendered by JS -->
+  </div>
+</div>
+
+<!-- ============ QUICK CONSULT MODAL ============ -->
+<div class="modal-overlay" id="quickConsultModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <h2>👩‍⚕️ นัดปรึกษาทันที</h2>
+    <p style="color:var(--text-light);font-size:.9rem;margin-bottom:24px">เลือกผู้เชี่ยวชาญที่ต้องการปรึกษา</p>
+    <div id="quickConsultList">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="logo" onclick="navigate('home')" style="color:#fff">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+            <circle cx="20" cy="20" r="20" fill="url(#logoGrad2)"/>
+            <path d="M12 28c0-10 8-16 16-16-2 6-6 10-10 12 4-1 8-3 10-6 0 8-6 14-14 14a8 8 0 01-2-.4" fill="#fff" opacity=".9"/>
+            <defs><linearGradient id="logoGrad2" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#7EC8E3"/><stop offset="1" stop-color="#6BBF72"/></linearGradient></defs>
+          </svg>
+          <span style="-webkit-text-fill-color:#fff">Happy Work</span>
+        </a>
+        <p>พื้นที่ปลอดภัยสำหรับคนทำงาน พร้อมที่ปรึกษาและแบบประเมินความเครียด</p>
+      </div>
+      <div>
+        <h4>เมนู</h4>
+        <ul>
+          <li><a href="#home" onclick="navigate('home')">หน้าแรก</a></li>
+          <li><a href="#counselor" onclick="navigate('counselor')">หาที่ปรึกษา</a></li>
+          <li><a href="#stress-test" onclick="navigate('stress-test')">แบบทดสอบความเครียด</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>เพิ่มเติม</h4>
+        <ul>
+          <li><a href="#articles" onclick="navigate('articles')">บทความ</a></li>
+          <li><a href="#emergency" onclick="navigate('emergency')">เบอร์โทรฉุกเฉิน</a></li>
+          <li><a href="#login" onclick="navigate('login')">เข้าสู่ระบบ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>สายด่วนสุขภาพจิต</h4>
+        <ul>
+          <li><a href="tel:1323">📞 1323 — กรมสุขภาพจิต</a></li>
+          <li><a href="tel:1388">📞 1388 — สายด่วนป้องกันการฆ่าตัวตาย</a></li>
+          <li style="font-size:.82rem;opacity:.6;margin-top:8px">บริการ 24 ชั่วโมง</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Happy Work — Designed by Happy Work &nbsp;|&nbsp; ข้อมูลของคุณเป็นความลับ 🔒
+    </div>
+  </div>
+</footer>
+
+<!-- Toast -->
+<div id="toast" class="toast" style="display:none"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
