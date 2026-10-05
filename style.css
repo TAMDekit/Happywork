@@ -300,15 +300,19 @@ ul{list-style:none}
   background:var(--primary-100);border-color:var(--primary-300);color:var(--primary-500);
 }
 
-.counselor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;padding:0 24px}
+.counselor-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;padding:0 24px}
 
 .counselor-card{
   background:var(--white);border:1px solid var(--border);
-  border-radius:var(--r-lg);padding:28px;
+  border-radius:var(--r-lg);padding:0 28px 28px;overflow:hidden;
   transition:all var(--dur) var(--ease);
   animation:scaleIn .4s var(--ease) both;
 }
 .counselor-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
+.counselor-card-image{
+  display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;
+  margin-bottom:22px;background:#eef2f5;
+}
 .counselor-top{display:flex;gap:16px;align-items:flex-start;margin-bottom:16px}
 .counselor-avatar{
   width:64px;height:64px;border-radius:50%;
@@ -316,6 +320,9 @@ ul{list-style:none}
   font-size:1.4rem;font-weight:700;color:var(--white);
   flex-shrink:0;
 }
+.counselor-workplace{font-size:.86rem;color:var(--text-light);margin-bottom:8px}
+.counselor-suitable{font-size:.88rem;color:var(--text-light);line-height:1.6;margin-bottom:12px}
+.counselor-suitable strong{color:var(--text)}
 .counselor-info h3{font-size:1.05rem;font-weight:600;margin-bottom:4px}
 .counselor-info .title{font-size:.82rem;color:var(--text-muted)}
 .counselor-expertise{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}

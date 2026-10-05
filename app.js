@@ -6,46 +6,28 @@
 
 const counselors = [
   {
-    id:1, name:'ดร.สมหญิง วิชัยดิษฐ์', title:'นักจิตวิทยาคลินิก',
-    avatar:'ส', gradient:'linear-gradient(135deg,#7EC8E3,#5BB5D5)',
-    expertise:['Burnout','ความเครียดจากงาน','Work-Life Balance'],
-    phone:'02-xxx-xxxx', email:'somying@happywork.co', line:'@dr.somying',
-    bio:'ประสบการณ์ 15 ปี ด้านจิตวิทยาองค์กรและการให้คำปรึกษาคนทำงาน'
+    id:1, name:'คุณจิราพัชร นิลแย้ม', title:'นักจิตวิทยาคลินิก โรงพยาบาลมนารมย์',
+    image:'images/counselor-jirapatch.png',
+    expertise:['ทักษะทางสังคม','การจัดการอารมณ์','การปรับตัว'],
+    phone:'090-959-9304', line:'@JOYOFMINDS',
+    workplace:'โรงพยาบาลมนารมย์',
+    suitableFor:'ปัญหาความสัมพันธ์กับคนรอบตัว ความเครียด และการจัดการอารมณ์จากสถานการณ์ต่าง ๆ'
   },
   {
-    id:2, name:'อ.วรพล จิตสงบ', title:'นักจิตวิทยาการปรึกษา',
-    avatar:'ว', gradient:'linear-gradient(135deg,#6BBF72,#4CAF50)',
-    expertise:['ปัญหากับหัวหน้า','ความขัดแย้งกับเพื่อนร่วมงาน','การสื่อสารในองค์กร'],
-    phone:'02-xxx-xxxx', email:'worapol@happywork.co', line:'@worapol.mind',
-    bio:'ผู้เชี่ยวชาญด้านความสัมพันธ์ในที่ทำงานและการจัดการความขัดแย้ง'
+    id:2, name:'นพ.ณัฐพงษ์ ตั้งจิตบุญสง่า', title:'จิตแพทย์',
+    image:'images/counselor-natthaphong.png',
+    expertise:['ความเครียดจากการทำงาน','Toxic Workplace','ความสัมพันธ์กับเพื่อนร่วมงาน','Generation Gap','Burnout','CBT'],
+    phone:'02-310-3000', phoneLabel:'02-310-3000 — อูก้า',
+    workplace:'PAM Thailand'
   },
   {
-    id:3, name:'พญ.ปรียา ใจดี', title:'จิตแพทย์',
-    avatar:'ป', gradient:'linear-gradient(135deg,#D9C4FF,#A78BFA)',
-    expertise:['ภาวะซึมเศร้า','ความวิตกกังวล','Burnout','การจัดการอารมณ์'],
-    phone:'02-xxx-xxxx', email:'preeya@happywork.co', line:'@dr.preeya',
-    bio:'จิตแพทย์เฉพาะทาง มุ่งเน้นดูแลสุขภาพจิตคนวัยทำงาน'
-  },
-  {
-    id:4, name:'คุณนภา ชีวาสุข', title:'Life Coach & Counselor',
-    avatar:'น', gradient:'linear-gradient(135deg,#F4A896,#E8876E)',
-    expertise:['Work-Life Balance','การพัฒนาตนเอง','ความเครียดจากงาน','การวางแผนอาชีพ'],
-    phone:'02-xxx-xxxx', email:'napa@happywork.co', line:'@napa.coach',
-    bio:'Life Coach ที่ช่วยให้คุณค้นพบสมดุลระหว่างชีวิตการทำงานและชีวิตส่วนตัว'
-  },
-  {
-    id:5, name:'ดร.ธีรวัฒน์ สุขสันต์', title:'นักจิตวิทยาองค์กร',
-    avatar:'ธ', gradient:'linear-gradient(135deg,#FFE082,#FFB300)',
-    expertise:['Burnout','ความเครียดจากงาน','การบริหารเวลา','Productivity'],
-    phone:'02-xxx-xxxx', email:'teerawat@happywork.co', line:'@dr.teerawat',
-    bio:'ผู้เชี่ยวชาญด้านจิตวิทยาองค์กร ช่วยให้คนทำงานมีประสิทธิภาพอย่างมีความสุข'
-  },
-  {
-    id:6, name:'อ.มณีรัตน์ แก้วใส', title:'นักจิตวิทยาการปรึกษา',
-    avatar:'ม', gradient:'linear-gradient(135deg,#A8D8EA,#6BBF72)',
-    expertise:['ความขัดแย้งกับเพื่อนร่วมงาน','ปัญหากับหัวหน้า','ภาวะซึมเศร้า','Work-Life Balance'],
-    phone:'02-xxx-xxxx', email:'maneerat@happywork.co', line:'@maneerat.psy',
-    bio:'มุ่งเน้นการให้คำปรึกษาแบบองค์รวม ดูแลทั้งจิตใจและความสัมพันธ์ในที่ทำงาน'
+    id:3, name:'รัชดาภรณ์ ศรีวิลัย', title:'นักจิตวิทยาคลินิก',
+    image:'images/counselor-ratchadaporn.png',
+    expertise:['Cognitive Behavioral Therapy (CBT)','การให้คำปรึกษา','จิตบำบัดรายบุคคล'],
+    phone:'093-332-2511', phoneLabel:'093-332-2511 / 093-597-9997 / 02-160-5389',
+    workplace:'Body & Mind Clinic, อาคารจตุรัสจามจุรี กรุงเทพฯ',
+    website:'https://bodyandmindclinicbkk.com',
+    suitableFor:'ความเครียด ความกังวล การปรับตัว และปัญหาด้านอารมณ์'
   }
 ];
 
@@ -473,21 +455,22 @@ function renderCounselors(filter=''){
 
   grid.innerHTML = filtered.length ? filtered.map((c,i)=>`
     <div class="counselor-card" style="animation-delay:${i*.08}s">
+      <img class="counselor-card-image" src="${c.image}" alt="รูป${c.name}" />
       <div class="counselor-top">
-        <div class="counselor-avatar" style="background:${c.gradient}">${c.avatar}</div>
         <div class="counselor-info">
           <h3>${c.name}</h3>
           <p class="title">${c.title}</p>
         </div>
       </div>
-      <p style="font-size:.88rem;color:var(--text-light);margin-bottom:12px">${c.bio}</p>
+      ${c.workplace ? `<p class="counselor-workplace">🏥 ${c.workplace}</p>` : ''}
+      ${c.suitableFor ? `<p class="counselor-suitable"><strong>เหมาะกับ:</strong> ${c.suitableFor}</p>` : ''}
       <div class="counselor-expertise">
         ${c.expertise.map(e=>`<span>${e}</span>`).join('')}
       </div>
       <div class="counselor-contact">
-        <a href="tel:${c.phone.replace(/-/g,'')}">📞 โทร</a>
-        <a href="mailto:${c.email}">📧 อีเมล</a>
-        <a href="https://line.me/R/ti/p/${c.line}" target="_blank" rel="noopener">💬 LINE</a>
+        <a href="tel:${c.phone.replace(/-/g,'')}">📞 ${c.phoneLabel || c.phone}</a>
+        ${c.line ? `<a href="https://line.me/R/ti/p/${c.line}" target="_blank" rel="noopener">💬 LINE ${c.line}</a>` : ''}
+        ${c.website ? `<a href="${c.website}" target="_blank" rel="noopener">🌐 เว็บไซต์</a>` : ''}
       </div>
     </div>
   `).join('') : `
